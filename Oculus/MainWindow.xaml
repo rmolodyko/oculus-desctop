@@ -1,0 +1,41 @@
+﻿<Window x:Class="Oculus.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Oculus"
+        WindowStyle="None" ResizeMode="NoResize"  
+    WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+        <StackPanel Width="200" Height="100" Background="#FFDADADA" Name="stackPanelLogin" Visibility="Visible">
+            <ComboBox x:Name="comboBox1" HorizontalAlignment="Center" Margin="20" VerticalAlignment="Center" Width="150" SelectionChanged="ComboBox_SelectionChanged"/>
+            <Button Content="Войти" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Click="Button_Click"/>
+        </StackPanel>
+        <StackPanel Visibility="Hidden" Name="stackPanelMain" Width="Auto" Height="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="1" Margin="5" Click="Click_Promo">Промо</Button>
+                <Button Grid.Row="0" Grid.Column="2" Margin="5" Click="Click_ShotDown">Выключить ПК</Button>
+                <Button Grid.Row="0" Grid.Column="3" Margin="5" Click="Click_Exit">Выйти</Button>
+            </Grid>
+            <Grid Margin="50" Name="gridElements" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" Height="650">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

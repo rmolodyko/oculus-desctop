@@ -1,0 +1,17 @@
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\bin\Debug\Oculus.exe.config
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\bin\Debug\Oculus.exe
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\bin\Debug\Oculus.pdb
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\Oculus.csprojResolveAssemblyReference.cache
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\MainWindow.baml
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\MainWindow.g.cs
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\App.g.cs
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\Oculus_MarkupCompile.cache
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\Oculus.g.resources
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\Oculus.Properties.Resources.resources
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\Oculus.csproj.GenerateResource.Cache
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\Oculus.exe
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\Oculus.pdb
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\bin\Debug\Newtonsoft.Json.dll
+c:\users\me\documents\visual studio 2013\Projects\Oculus\Oculus\bin\Debug\Newtonsoft.Json.xml
+C:\Users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\WindowExit.baml
+C:\Users\me\documents\visual studio 2013\Projects\Oculus\Oculus\obj\Debug\WindowExit.g.cs
