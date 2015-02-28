@@ -13,8 +13,8 @@ namespace Oculus
         static public AppRegistry instance;
 
         public int id_place;
-        public JArray employee_email;
-        public JArray emlloyee_id_bind;
+        public List<String> employee_email = new List<String>();
+        public List<int> employee_id_bind = new List<int>();
         public String passwordSetting = "123";
 
         public String promoPath;
@@ -32,6 +32,8 @@ namespace Oculus
         public String pathToConfigGames = @"config\games.txt";
         public String pathToConfigMain = @"config\main.txt";
         public String pathToConfigThumb = @"config\thumb.txt";
+
+        public String pathToEmailEmployee = @"config\dynamic\employee.txt";
 
         public int widthMainGrid;
         public int heightMainGrid;

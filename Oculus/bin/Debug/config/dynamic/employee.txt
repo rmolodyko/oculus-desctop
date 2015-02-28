@@ -1,0 +1,2 @@
+{"email":"molodyko13@gmail.com","id_bind":5}
+{"email":"lalala@ukr.net","id_bind":6}

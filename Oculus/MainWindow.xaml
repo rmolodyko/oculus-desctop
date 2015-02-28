@@ -19,12 +19,28 @@
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="0" Grid.Column="1" Margin="5" Click="Click_Promo">Промо</Button>
-                <Button Grid.Row="0" Grid.Column="2" Margin="5" Click="Click_ShotDown">Выключить ПК</Button>
-                <Button Grid.Row="0" Grid.Column="3" Margin="5" Click="Click_Exit">Выйти</Button>
+                <Button Grid.Row="0" Grid.Column="1" Margin="5" Click="Click_PreviousPanel">Назад</Button>
+                <Button Grid.Row="0" Grid.Column="2" Margin="5" Click="Click_NextPanel">Вперед</Button>
+                <Button Grid.Row="0" Grid.Column="3" Margin="5" Click="Click_Promo">Промо</Button>
+                <Button Grid.Row="0" Grid.Column="4" Margin="5" Click="Click_ShotDown">Выключить ПК</Button>
+                <Button Grid.Row="0" Grid.Column="5" Margin="5" Click="Click_Exit">Выйти</Button>
             </Grid>
             <Grid Margin="50" Name="gridElements" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" Height="650">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Margin="50" Name="gridElements1" Visibility="Visible"   HorizontalAlignment="Center" VerticalAlignment="Center" Width="900" Height="650">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>

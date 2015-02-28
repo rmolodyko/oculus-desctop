@@ -27,11 +27,11 @@ namespace Oculus
     public partial class MainWindow : Window
     {
         public AppRegistry web = AppRegistry.getInstance();
+        public TextConfig textConfig = new TextConfig();
 
         public MainWindow()
         {
             InitializeComponent();
-            TextConfig textConfig = new TextConfig();
             textConfig.init();
             initWindow();
             initialFillEmployeeComboBox();
@@ -47,14 +47,25 @@ namespace Oculus
         }
 
         private void initialFillEmployeeComboBox() {
-            if (Web.getEmployeeBind(web.id_place))
+
+            if (File.Exists(web.pathToEmailEmployee))
             {
-                foreach (String i in web.employee_email)
-                {
-                    comboBox1.Items.Add(i);
-                }
-                comboBox1.SelectedIndex = 0;
+                textConfig.getEmailEmployee();
+                Console.WriteLine("1-----");
             }
+            else
+            {
+                Web.getEmployeeBind(web.id_place);
+                textConfig.setEmailEmployee();
+                Console.WriteLine("2-----");
+            }
+
+            if(web.employee_email != null)
+            foreach (String i in web.employee_email)
+            {
+                comboBox1.Items.Add(i);
+            }
+            comboBox1.SelectedIndex = 0;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -68,6 +79,21 @@ namespace Oculus
                 for (int j = 0; j <= 2; j++ )
                 {
                     addStackPanel(gridElements, i, j,count);
+                    count++;
+                }
+            }
+
+            for (int i = 0; i <= 2; i++)
+            {
+                for (int j = 0; j <= 2; j++)
+                {
+                    addStackPanel(gridElements1, i, j, count);
+                    gridElements1.Margin = new Thickness(
+                                                gridElements1.Margin.Right,    
+                                                gridElements1.Margin.Top,
+                                                gridElements1.Margin.Left,
+                                                0
+                        );
                     count++;
                 }
             }
@@ -133,11 +159,17 @@ namespace Oculus
                 Console.WriteLine(ex.Message);
             }
             mp.Volume = 0;
+            mp.MediaEnded += new EventHandler(Media_Ended);
             mp.Play();
 
             return mp;
         }
 
+        private void Media_Ended(object sender, EventArgs e)
+        {
+            ((MediaPlayer)sender).Position = TimeSpan.Zero;
+            ((MediaPlayer)sender).Play();
+        }
         private void clickGame(object sender, RoutedEventArgs e)
         {
             Label btn = ((Label)sender);
@@ -148,6 +180,23 @@ namespace Oculus
             Console.WriteLine(l.getDuration());
         }
 
+        private double heightPanel;
+        private void Click_PreviousPanel(object sender, RoutedEventArgs e)
+        {
+            gridElements1.Visibility = System.Windows.Visibility.Hidden;
+            gridElements.Visibility = System.Windows.Visibility.Visible;
+            gridElements.Height = heightPanel;
+            gridElements.Margin = new Thickness(50);
+        }
+
+        private void Click_NextPanel(object sender, RoutedEventArgs e)
+        {
+            heightPanel = gridElements.Height;
+            gridElements.Visibility = System.Windows.Visibility.Hidden;
+            gridElements1.Visibility = System.Windows.Visibility.Visible;
+            gridElements.Height = 0;
+            gridElements.Margin = new Thickness(0);
+        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

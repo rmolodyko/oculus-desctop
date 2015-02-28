@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,29 @@ namespace Oculus
             initGames();
             initMain();
             initThumb();
+        }
+
+        public void setEmailEmployee() {
+            List<String> json = new List<String>();
+            if(web.employee_email != null)
+            for (int i = 0; i < web.employee_email.Count; i++ )
+            {
+                dynamic res = new { email = web.employee_email[i], id_bind = web.employee_id_bind[i] };
+                json.Add(Web.serialazeObject(res));
+                System.IO.File.Delete(web.pathToEmailEmployee);
+                System.IO.File.WriteAllLines(web.pathToEmailEmployee, json);
+            }
+        }
+
+        public void getEmailEmployee()
+        {
+            List<String> ls = readFile(web.pathToEmailEmployee);
+            foreach(String i in ls){
+                if (i == "") continue;
+                dynamic res = JsonConvert.DeserializeObject(i);
+                web.employee_email.Add((String)res.email);
+                web.employee_id_bind.Add((int)res.id_bind);
+            }
         }
 
         public void initPromo(){
