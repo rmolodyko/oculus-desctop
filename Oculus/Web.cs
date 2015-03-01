@@ -15,6 +15,7 @@ namespace Oculus
 
         static public string GET(string Url, string Data)
         {
+            Console.WriteLine(Url + "?" + Data);
             WebRequest req = WebRequest.Create(Url + "?" + Data);
             WebResponse resp = req.GetResponse();
             Stream stream = resp.GetResponseStream();
@@ -45,6 +46,25 @@ namespace Oculus
             {
                 return false;
             }
+        }
+
+        static public void sendDataSessionEmployee(List<String> json, String type)
+        {
+            try
+            {
+                Console.WriteLine(serialazeObject(json));
+                String json_res = Web.GET(web.serverUri, "r=" + "remote/data/setSession&id_bind=" + web.id_bind+"&json="+serialazeObject(json)+"&type="+type);
+                Console.WriteLine(json_res);
+                if(type == "employee")
+                web.last_active = Int32.Parse(json_res);
+            }catch(Exception ex){
+
+            }
+        }
+        static public void getLastActive()
+        {
+            String json = Web.GET(web.serverUri, "r=" + "remote/data/getLastActive&id_bind=" + web.id_bind);
+            web.last_active = Int32.Parse(json);
         }
 
         static public dynamic convertJsonToDinamic(String json)

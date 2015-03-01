@@ -22,7 +22,7 @@ namespace Oculus
             }
         }
 
-        public void startProgram()
+        public void startProgram(String mode,int id_game)
         {
             try
             {
@@ -42,17 +42,22 @@ namespace Oculus
             {
                 if (process != null)
                 {
-                    stopProgram();
+
+                    stopProgram(mode,id_game);
                 }
             }
         }
 
-        public void stopProgram()
+        public void stopProgram(String mode, int id_game)
         {
             stopWatch.Stop();
             process.Close();
             duration = stopWatch.Elapsed;
             publish("stop");
+            TextConfig textConfig = new TextConfig();
+            if(mode != "promo")
+            textConfig.writeSessionPlay(id_game,duration.Seconds);
+
         }
 
         public TimeSpan getDuration()

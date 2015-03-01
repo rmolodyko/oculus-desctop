@@ -13,6 +13,8 @@ namespace Oculus
         static public AppRegistry instance;
 
         public int id_place;
+        public int id_bind;
+        public int last_active;
         public List<String> employee_email = new List<String>();
         public List<int> employee_id_bind = new List<int>();
         public String passwordSetting = "123";
@@ -34,6 +36,8 @@ namespace Oculus
         public String pathToConfigThumb = @"config\thumb.txt";
 
         public String pathToEmailEmployee = @"config\dynamic\employee.txt";
+        public String pathToSessionDirectory = @"config\dynamic\session_employee\";
+        public String pathToSessionPlayDirectory = @"config\dynamic\session_play\";
 
         public int widthMainGrid;
         public int heightMainGrid;
@@ -45,6 +49,35 @@ namespace Oculus
                 instance = new AppRegistry();
             }
             return instance;
+        }
+
+        public String getPathToSessionPlay()
+        {
+            String path = pathToSessionPlayDirectory;
+            bool exists = System.IO.Directory.Exists(path+id_bind);
+            if (!exists)
+                System.IO.Directory.CreateDirectory(path+id_bind);
+
+            return path+id_bind+"\\"+tsToday()+".txt";
+        }
+
+        public String getPathToSessionEmployee()
+        {
+            String path = pathToSessionDirectory;
+            bool exists = System.IO.Directory.Exists(path+id_bind);
+            if (!exists)
+                System.IO.Directory.CreateDirectory(path+id_bind);
+
+            return path+id_bind+"\\"+tsToday()+".txt";
+        }
+
+        public Int32 tsToday()
+        {
+            int day = DateTime.UtcNow.Day; 
+            int month = DateTime.UtcNow.Month; 
+            int year = DateTime.UtcNow.Year; 
+            Int32 tsu = (Int32)((new DateTime(year,month,day)).Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            return tsu+86399;
         }
     }
 }

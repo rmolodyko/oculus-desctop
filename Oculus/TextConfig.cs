@@ -118,7 +118,8 @@ namespace Oculus
                 {
                     ls.Add(str);
                 }
-
+                sr.Close();
+                fs.Close();
                 return ls;
 
             }catch(Exception ex){
@@ -127,5 +128,47 @@ namespace Oculus
 
             }
         }
+
+        public void writeSessionPlay(int id_game,int duration)
+        {
+            Console.WriteLine("play");
+            List<String> json = new List<String>();
+            Int32 tsu = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            dynamic res = new {ts = tsu, id_game = id_game, duration = duration};
+            json.Add(Web.serialazeObject(res));
+            System.IO.File.AppendAllLines(web.getPathToSessionPlay(), json);
+        }
+
+        public void writeSessionEmployee(String type)
+        {
+            List<String> json = new List<String>();
+            Int32 tsu = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            dynamic res = new {ts = tsu, action = type};
+            json.Add(Web.serialazeObject(res));
+            System.IO.File.AppendAllLines(web.getPathToSessionEmployee(), json);
+        }
+
+        public List<String> readSessionPlay(String filename)
+        {
+            List<string> ls = readFile(web.pathToSessionPlayDirectory+web.id_bind+"\\"+filename+".txt");
+            return ls;
+        }
+
+        public List<String> readSessionEmployee(String filename)
+        {
+            List<string> ls = readFile(web.pathToSessionDirectory+web.id_bind+"\\"+filename+".txt");
+            return ls;
+        }
+
+        public List<String> getNameFiles(String path){
+            var dir=new DirectoryInfo(path);
+            var files = new List<string>();
+            foreach (FileInfo file in dir.GetFiles())
+            { 
+                files.Add(Path.GetFileNameWithoutExtension(file.FullName));
+            }
+            return files;
+        }
+
     }
 }

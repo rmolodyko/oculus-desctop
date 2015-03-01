@@ -35,8 +35,15 @@ namespace Oculus
             textConfig.init();
             initWindow();
             initialFillEmployeeComboBox();
-
+            AppDomain.CurrentDomain.ProcessExit += onClose;
         }
+
+        public void onClose(object sender, EventArgs e)
+        {
+            textConfig.writeSessionEmployee("end");
+            sendDataToServer();
+        }
+
 
         private void initWindow() {
             if (web.widthMainGrid > 0)
@@ -70,6 +77,7 @@ namespace Oculus
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            initEmployee();
             stackPanelLogin.Visibility = System.Windows.Visibility.Hidden;
             stackPanelMain.Visibility = System.Windows.Visibility.Visible;
 
@@ -99,10 +107,44 @@ namespace Oculus
             }
         }
 
+        private void initEmployee()
+        {
+            web.id_bind = web.employee_id_bind[comboBox1.SelectedIndex];
+            try
+            {
+                Web.getLastActive(); 
+                textConfig.writeSessionEmployee("start");
+                sendDataToServer();               
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void sendDataToServer()
+        {
+            var files = textConfig.getNameFiles(web.pathToSessionDirectory+web.id_bind);
+            foreach(String i in files){
+                if(web.last_active < Int32.Parse(i)){
+                    Console.WriteLine(Int32.Parse(i));
+                    Web.sendDataSessionEmployee(textConfig.readSessionEmployee(i),"employee");
+                }
+            }
+            files = textConfig.getNameFiles(web.pathToSessionPlayDirectory+web.id_bind);
+            foreach(String i in files){
+                if(web.last_active < Int32.Parse(i)){
+                    Console.WriteLine(Int32.Parse(i));
+                    Web.sendDataSessionEmployee(textConfig.readSessionPlay(i),"play");
+                }
+            }
+
+        }
+
         private void Click_Promo(object sender, RoutedEventArgs e)
         {
             Launch l = new Launch(web.promoPath,web.promoArgs);
-            l.startProgram();
+            l.startProgram("promo",0);
             Console.WriteLine(l.getDuration());
 
         }
@@ -176,7 +218,7 @@ namespace Oculus
             Console.WriteLine(btn.Uid);
             int num = int.Parse(btn.Uid);
             Launch l = new Launch(web.game_path[num], web.game_args[num]);
-            l.startProgram();
+            l.startProgram("game",num);
             Console.WriteLine(l.getDuration());
         }
 

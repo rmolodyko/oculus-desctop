@@ -1,0 +1,6 @@
+{"ts":1425190735,"id_game":1,"duration":3}
+{"ts":1425190738,"id_game":2,"duration":3}
+{"ts":1425190759,"id_game":2,"duration":2}
+{"ts":1425190810,"id_game":1,"duration":3}
+{"ts":1425190812,"id_game":2,"duration":2}
+{"ts":1425190827,"id_game":1,"duration":2}
