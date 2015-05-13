@@ -29,7 +29,7 @@ namespace Oculus
         {
             try
             {
-                String json = Web.GET(web.serverUri, "r=" + "operate/manage/select&id_place=" + id_place);
+                String json = Web.GET(web.serverUri, "r=" + "remote/data/loginEmployee&id_place=" + id_place);
                 dynamic res = convertJsonToDinamic(json);
                 Console.WriteLine(res.email[0]);
                 foreach (var i in res.email)
@@ -44,7 +44,8 @@ namespace Oculus
             }
             catch (Exception ex)
             {
-                return false;
+                throw new WebException("error");
+                //return false;
             }
         }
 
@@ -55,8 +56,8 @@ namespace Oculus
                 Console.WriteLine(serialazeObject(json));
                 String json_res = Web.GET(web.serverUri, "r=" + "remote/data/setSession&id_bind=" + web.id_bind+"&json="+serialazeObject(json)+"&type="+type);
                 Console.WriteLine(json_res);
-                if(type == "employee")
-                web.last_active = Int32.Parse(json_res);
+                //if(type == "employee")
+                //web.last_active = Int32.Parse(json_res);
             }catch(Exception ex){
 
             }
@@ -82,6 +83,5 @@ namespace Oculus
         static public void sendDataGame(int id_game,int duration,int ts_start) { 
             
         }
-
     }
 }

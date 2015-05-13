@@ -18,6 +18,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.Diagnostics;
+using Microsoft.Win32;
+using System.Runtime.InteropServices;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace Oculus
 {
@@ -28,9 +32,9 @@ namespace Oculus
     {
         public AppRegistry web = AppRegistry.getInstance();
         public TextConfig textConfig = new TextConfig();
-
         public MainWindow()
         {
+            InterceptKeys.Deny(); 
             InitializeComponent();
             textConfig.init();
             initWindow();
@@ -40,8 +44,12 @@ namespace Oculus
 
         public void onClose(object sender, EventArgs e)
         {
-            textConfig.writeSessionEmployee("end");
-            sendDataToServer();
+            closeForm();
+        }
+
+        public void closeForm()
+        {
+           InterceptKeys.Allow(); 
         }
 
 
@@ -54,17 +62,14 @@ namespace Oculus
         }
 
         private void initialFillEmployeeComboBox() {
-
-            if (File.Exists(web.pathToEmailEmployee))
-            {
-                textConfig.getEmailEmployee();
-                Console.WriteLine("1-----");
-            }
-            else
+            try
             {
                 Web.getEmployeeBind(web.id_place);
                 textConfig.setEmailEmployee();
                 Console.WriteLine("2-----");
+            }catch(WebException e){
+              // if (File.Exists(web.pathToEmailEmployee))
+                textConfig.getEmailEmployee();
             }
 
             if(web.employee_email != null)
@@ -112,15 +117,21 @@ namespace Oculus
             web.id_bind = web.employee_id_bind[comboBox1.SelectedIndex];
             try
             {
-                Web.getLastActive(); 
                 textConfig.writeSessionEmployee("start");
-                sendDataToServer();               
+                Web.getLastActive(); 
             }
             catch (Exception ex)
             {
 
             }
         }
+
+
+        public void Click_SendData(object sender, RoutedEventArgs e)
+        {
+                sendDataToServer();               
+        }
+    
 
         private void sendDataToServer()
         {
@@ -153,6 +164,8 @@ namespace Oculus
         {
             if (MessageBox.Show("Выключить ПК?", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
+                closeForm();
+                    textConfig.writeSessionEmployee("end");
                 var psi = new ProcessStartInfo("shutdown", "/s /t 0");
                 psi.CreateNoWindow = true;
                 psi.UseShellExecute = false;
@@ -165,8 +178,12 @@ namespace Oculus
             var dialog = new WindowExit();
             if (dialog.ShowDialog() == true)
             {
-                if (dialog.ResponseText == web.passwordSetting)
-                    Application.Current.Shutdown();
+                if (dialog.ResponseText == web.passwordSetting) {
+                    closeForm();
+                    textConfig.writeSessionEmployee("end");
+                Application.Current.Shutdown();
+                }
+                    
             }
         }
 
